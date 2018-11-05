@@ -65,21 +65,3 @@ class Picker extends Component {
 }
 
 export default Picker;
-
-/*
-{
-  this.state.weeksNumbers.map((weeksNumber) => {
-    return (
-      <tr key={weeksNumber}>
-        {
-          this.state.weeks[weeksNumber].map((day, i) => {
-            return (
-              <td style={{width: '14.2857%'}} key={i} className='picker__day'>{day}</td>
-            )
-          })
-        }
-      </tr>
-    )
-  })
-}
-*/

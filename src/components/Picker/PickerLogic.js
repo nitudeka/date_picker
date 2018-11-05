@@ -4,9 +4,12 @@
 */
 
 const PickerLogic = (month, year) => {
+  // Create a new Date object
+  const targetDate = new Date();
+  
   // Validate year and month
-  month = month > 1 && month <= 12 ? month : new Date().getMonth() + 1;
-  year = year ? year : new Date().getFullYear();
+  month = month > 1 && month <= 12 ? month : targetDate.getMonth() + 1;
+  year = year ? year : targetDate.getFullYear();
   
   // Object to get returned
   const calendar = {};
@@ -17,13 +20,13 @@ const PickerLogic = (month, year) => {
   calendar.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   // Current day name
-  calendar.currentDay = calendar.weekDays[new Date().getDay()];
+  calendar.currentDay = calendar.weekDays[targetDate.getDay()];
   // Current date
-  calendar.currentDate = new Date().getDate();
+  calendar.currentDate = targetDate.getDate();
   // Current month name
-  calendar.currentMonth = calendar.months[new Date().getMonth()];
+  calendar.currentMonth = calendar.months[targetDate.getMonth()];
   // Current year
-  calendar.currentYear = new Date().getFullYear();
+  calendar.currentYear = targetDate.getFullYear();
 
   // Get the total days in a given month
   calendar.getTotalDaysInMonth = (month, year) => {
