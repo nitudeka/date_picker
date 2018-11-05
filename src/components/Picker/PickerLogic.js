@@ -11,6 +11,10 @@ const PickerLogic = (month, year) => {
   month = month > 1 && month <= 12 ? month : targetDate.getMonth() + 1;
   year = year ? year : targetDate.getFullYear();
   
+  // Set the month and year to given arguments
+  targetDate.setMonth(month - 1);
+  targetDate.setFullYear(year);
+  
   // Object to get returned
   const calendar = {};
   
