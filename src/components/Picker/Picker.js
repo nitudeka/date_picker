@@ -9,18 +9,16 @@ class Picker extends Component {
     currentDate: PickerLogic().currentDate,
     currentMonth: PickerLogic().currentMonth,
     currentYear: PickerLogic().currentYear,
-    selectedMonth: PickerLogic().currentMonth
+    selectedMonth: PickerLogic().currentMonth,
+    monthArray: []
   }
   
   render () {
-    const nitu = [];
-    
     for (let i=1; i<=PickerLogic().allDaysInMonth.length; i++) {
       if ((i % 7) === 0) {
-        nitu.push(PickerLogic().allDaysInMonth.slice(i - 7, i));
+        this.state.monthArray.push(PickerLogic().allDaysInMonth.slice(i - 7, i));
       }
     }
-    console.log(nitu)
     
     return (
       <div className='picker__container'>
@@ -45,7 +43,19 @@ class Picker extends Component {
               </tr>
             </thead>
             <tbody>
-              <tr><td>nitumoni</td><td>nitumoni</td></tr>
+              {
+                this.state.monthArray.map((days, i) => {
+                  return (
+                    <tr key={i}>
+                      {
+                        days.map((day, i) => {
+                          return <td style={{width: '14.2857%', height: '16px'}} key={i} className='picker__day'>{day}</td>
+                        })
+                      }
+                    </tr>
+                  )
+                })
+              }
             </tbody>
           </table>
         </div>
