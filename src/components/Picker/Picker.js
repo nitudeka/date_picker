@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
+import PickerLogic from './PickerLogic';
 import leftArr from '../../assets/svg/left-arrow.svg';
 import rightArr from '../../assets/svg/right-arrow.svg';
 
 class Picker extends Component {
   state = {
-    currentDay: 'Sunday',
-    currentDate: 26,
-    currentMonth: 'October',
-    currentYear: 2018,
-    selectedMonth: 'December',
-    allDays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    weeksNumbers: ['1st', '2nd', '3rd', '4th', '5th'],
-    weeks: {
-      '1st': [1,2,3,4,5,6,7],
-      '2nd': [8,9,10,11,12,13,14],
-      '3rd': [15,16,17,18,19,20,21],
-      '4th': [22,23,24,25,26,27,28],
-      '5th': [29,30,31]
-    }
+    currentDay: PickerLogic().currentDay,
+    currentDate: PickerLogic().currentDate,
+    currentMonth: PickerLogic().currentMonth,
+    currentYear: PickerLogic().currentYear,
+    selectedMonth: PickerLogic().currentMonth
   }
   
   render () {
+    const nitu = [];
+    
+    for (let i=1; i<=PickerLogic().allDaysInMonth.length; i++) {
+      if ((i % 7) === 0) {
+        nitu.push(PickerLogic().allDaysInMonth.slice(i - 7, i));
+      }
+    }
+    console.log(nitu)
+    
     return (
       <div className='picker__container'>
         <div className='picker__header'>
@@ -37,28 +38,14 @@ class Picker extends Component {
             <thead>
               <tr>
                 {
-                  this.state.allDays.map((dayName) => {
-                    return <th key={dayName} className='picker__weekday'>{dayName.substr(0, 3)}</th>
+                  PickerLogic().weekDays.map((day) => {
+                    return <th className='picker__weekday' key={day} title={day}>{day.slice(0, 3)}</th>
                   })
                 }
               </tr>
             </thead>
             <tbody>
-              {
-                this.state.weeksNumbers.map((weeksNumber) => {
-                  return (
-                    <tr key={weeksNumber}>
-                      {
-                        this.state.weeks[weeksNumber].map((day) => {
-                          return (
-                            <td style={{width: '14.2857%'}} key={day} className='picker__day'>{day}</td>
-                          )
-                        })
-                      }
-                    </tr>
-                  )
-                })
-              }
+              <tr><td>nitumoni</td><td>nitumoni</td></tr>
             </tbody>
           </table>
         </div>
@@ -68,3 +55,21 @@ class Picker extends Component {
 }
 
 export default Picker;
+
+/*
+{
+  this.state.weeksNumbers.map((weeksNumber) => {
+    return (
+      <tr key={weeksNumber}>
+        {
+          this.state.weeks[weeksNumber].map((day, i) => {
+            return (
+              <td style={{width: '14.2857%'}} key={i} className='picker__day'>{day}</td>
+            )
+          })
+        }
+      </tr>
+    )
+  })
+}
+*/
