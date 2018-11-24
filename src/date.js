@@ -25,10 +25,22 @@ const calendar = (month, year) => {
   calendarContainer.tatalDays = new Date(year, month + 1, 0).getDate();
   calendarContainer.allDays = [];
 
+  // Get the number of blank days in the current month
+  const numberOfBlankDaysBeforeMonth = new Date(year, month, 1).getDay();
+  // Do a for loop to push the last days of the last month to alldays array
+  for (let i=0; i>-numberOfBlankDaysBeforeMonth; i--) {
+    calendarContainer.allDays.unshift(new Date(year, month, i).getDate())
+  }
+
   return calendarContainer;
 }
 
 console.log(calendar(11, 2018));
+
+/*
+  -- do a for loop to push the last days of the last month
+*/
+
 
 /*
   -- The function should return
