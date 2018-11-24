@@ -25,7 +25,7 @@ const calendar = (month, year) => {
 
   calendarContainer.currentDay = calendarContainer.weekDays[targetDate.getDay()];
   calendarContainer.currentDate = targetDate.getDate();
-  calendarContainer.currentMonth = calendarContainer.months[targetDate.getMonth() + 1];
+  calendarContainer.currentMonth = calendarContainer.months[targetDate.getMonth()];
   calendarContainer.currentYear = targetDate.getFullYear();
   calendarContainer.totalDays = new Date(year, month + 1, 0).getDate();
   calendarContainer.allDays = [];
@@ -35,7 +35,7 @@ const calendar = (month, year) => {
   const numberOfBlankDaysAfterMonth = new Date(year, month + 1, 1).getDay();
   // Do a for loop to push the last days of the last month to allDays array
   for (let i=0; i>-numberOfBlankDaysBeforeMonth; i--) {
-    calendarContainer.allDays.unshift(new Date(year, month, i).getDate())
+    calendarContainer.allDays.unshift(new Date(year, month, i).getDate());
   }
   // Push all days of current month to allDays array
   for (let i=1; i<=calendarContainer.totalDays; i++) {
