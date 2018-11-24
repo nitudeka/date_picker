@@ -22,7 +22,7 @@ const calendar = (month, year) => {
   calendarContainer.currentDate = targetDate.getDate();
   calendarContainer.currentMonth = targetDate.getMonth() + 1;
   calendarContainer.currentYear = targetDate.getFullYear();
-  calendarContainer.tatalDays = new Date(year, month + 1, 0).getDate();
+  calendarContainer.totalDays = new Date(year, month + 1, 0).getDate();
   calendarContainer.allDays = [];
 
   // Get the number of blank days in the current month
@@ -30,6 +30,9 @@ const calendar = (month, year) => {
   // Do a for loop to push the last days of the last month to alldays array
   for (let i=0; i>-numberOfBlankDaysBeforeMonth; i--) {
     calendarContainer.allDays.unshift(new Date(year, month, i).getDate())
+  }
+  for (let i=1; i<=calendarContainer.totalDays; i++) {
+    calendarContainer.allDays.push(new Date(year, month, i).getDate());
   }
 
   return calendarContainer;
