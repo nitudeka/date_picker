@@ -27,30 +27,29 @@ const calendar = (month, year) => {
 
   // Get the number of blank days in the current month
   const numberOfBlankDaysBeforeMonth = new Date(year, month, 1).getDay();
-  // Do a for loop to push the last days of the last month to alldays array
+  const numberOfBlankDaysAfterMonth = new Date(year, month + 1, 1).getDay();
+  // Do a for loop to push the last days of the last month to allDays array
   for (let i=0; i>-numberOfBlankDaysBeforeMonth; i--) {
     calendarContainer.allDays.unshift(new Date(year, month, i).getDate())
   }
+  // Push all days of current month to allDays array
   for (let i=1; i<=calendarContainer.totalDays; i++) {
     calendarContainer.allDays.push(new Date(year, month, i).getDate());
+  }
+  // Do a for loop to push the first days of the next month to allDays array
+  for (let i=1; i<=numberOfBlankDaysAfterMonth; i++) {
+    calendarContainer.allDays.push(new Date(year, month, i+calendarContainer.totalDays).getDate());
+  }
+  if (calendarContainer.allDays.length !== 42) {
+    const numbeOfDaysToPush = 42 - calendarContainer.allDays.length;
+    const lastDate = calendarContainer.allDays[calendarContainer.allDays.length - 1];
+    for (let i=1; i<=numbeOfDaysToPush; i++) {
+      calendarContainer.allDays.push(lastDate + i);
+    }
   }
 
   return calendarContainer;
 }
 
-console.log(calendar(11, 2018));
-
-/*
-  -- do a for loop to push the last days of the last month
-*/
-
-
-/*
-  -- The function should return
-    -- Current day
-    -- Current date
-    -- Current month
-    -- Current year
-    -- Total days in month
-    -- All days of month as an array. e.g:- [29, 30, 1, 2, 3, 4, ........, 28, 29, 30, 31, 1, 2, 3, 4, 5]
-*/
+// Export the module
+module.exports = calendar;
