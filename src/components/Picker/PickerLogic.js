@@ -1,68 +1,60 @@
 /*
-* File to store all the logic for the date picker
-*
-*/
+ * Library to return the dates in a month as an array
+ *
+ */
 
-const PickerLogic = (month, year) => {
+// Dependencies
+
+const calendar = (month, year) => {
+  // Validate the parameters
+  month = typeof(month) === 'number' && month >= 1 && month <= 12 ? month - 1 : new Date().getMonth();
+  year = typeof(year) === 'number' ? year : new Date().getFullYear();
+
   // Create a new Date object
   const targetDate = new Date();
-  
-  // Validate year and month
-  month = month > 1 && month <= 12 ? month : targetDate.getMonth() + 1;
-  year = year ? year : targetDate.getFullYear();
-  
-  // Set the month and year to given arguments
-  targetDate.setMonth(month - 1);
+  targetDate.setMonth(month);
   targetDate.setFullYear(year);
-  
-  // Object to get returned
-  const calendar = {};
-  
+
+  // Container to store the returned values
+  const calendarContainer = {};
+
   // All the days in a week
-  calendar.weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  calendarContainer.weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   // All months in a year
-  calendar.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  calendarContainer.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-  // Current day name
-  calendar.currentDay = calendar.weekDays[targetDate.getDay()];
-  // Current date
-  calendar.currentDate = targetDate.getDate();
-  // Current month name
-  calendar.currentMonth = calendar.months[targetDate.getMonth()];
-  // Current year
-  calendar.currentYear = targetDate.getFullYear();
+  calendarContainer.currentDay = calendarContainer.weekDays[targetDate.getDay()];
+  calendarContainer.currentDate = targetDate.getDate();
+  calendarContainer.currentMonth = calendarContainer.months[targetDate.getMonth() + 1];
+  calendarContainer.currentYear = targetDate.getFullYear();
+  calendarContainer.totalDays = new Date(year, month + 1, 0).getDate();
+  calendarContainer.allDays = [];
 
-  // Get the total days in a given month
-  calendar.getTotalDaysInMonth = (month, year) => {
-    return new Date(year, month, 0).getDate();
-  };
-
-  // All the days in a month
-  calendar.allDaysInMonth = [];
-
-  // Push all the days to allDaysInMonth array
-  for (let i=1; i<=calendar.getTotalDaysInMonth(month, year); i++) {
-    calendar.allDaysInMonth.push(i);
+  // Get the number of blank days in the current month
+  const numberOfBlankDaysBeforeMonth = new Date(year, month, 1).getDay();
+  const numberOfBlankDaysAfterMonth = new Date(year, month + 1, 1).getDay();
+  // Do a for loop to push the last days of the last month to allDays array
+  for (let i=0; i>-numberOfBlankDaysBeforeMonth; i--) {
+    calendarContainer.allDays.unshift(new Date(year, month, i).getDate())
   }
-
-  // Get the first day in month
-  calendar.getFirstDayInMonth = (month, year) => {
-    return new Date(year, month - 1, 1).getDay();
+  // Push all days of current month to allDays array
+  for (let i=1; i<=calendarContainer.totalDays; i++) {
+    calendarContainer.allDays.push(new Date(year, month, i).getDate());
   }
-
-  // Push nulls to the allDaysInMonth array
-  for (let i=1; i<=calendar.getFirstDayInMonth(month, year); i++) {
-    calendar.allDaysInMonth.unshift(null);
+  // Do a for loop to push the first days of the next month to allDays array
+  for (let i=1; i<=numberOfBlankDaysAfterMonth; i++) {
+    calendarContainer.allDays.push(new Date(year, month, i+calendarContainer.totalDays).getDate());
   }
-
-  for (let i=1; i<=42; i++) {
-    if (calendar.allDaysInMonth.length < i) {
-      calendar.allDaysInMonth.push(null);
+  if (calendarContainer.allDays.length !== 42) {
+    const numbeOfDaysToPush = 42 - calendarContainer.allDays.length;
+    const lastDate = calendarContainer.allDays[calendarContainer.allDays.length - 1];
+    for (let i=1; i<=numbeOfDaysToPush; i++) {
+      calendarContainer.allDays.push(lastDate + i);
     }
   }
-  
-  // Return the object
-  return calendar;
+
+  return calendarContainer;
 }
 
-export default PickerLogic;
+// Export the module
+module.exports = calendar;

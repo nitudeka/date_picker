@@ -14,9 +14,9 @@ class Picker extends Component {
   }
   
   render () {
-    for (let i=1; i<=PickerLogic().allDaysInMonth.length; i++) {
+    for (let i=1; i<=PickerLogic().allDays.length; i++) {
       if ((i % 7) === 0) {
-        this.state.monthArray.push(PickerLogic().allDaysInMonth.slice(i - 7, i));
+        this.state.monthArray.push(PickerLogic().allDays.slice(i - 7, i));
       }
     }
     
