@@ -1,7 +1,6 @@
 import React from 'react';
 
 const calendarCell = (props) => {
-  // Know when the month starts
   let startMonth = false;
   // Know where the month ends
   let endMonth = false;
@@ -18,8 +17,15 @@ const calendarCell = (props) => {
               startMonth = true;
             };
             if (startMonth) {
-              classNames.push('picker__day--active');
+              if (classNames.indexOf('picker__day--active') > -1) {
+
+              } else {
+                classNames.push('picker__day--active');
+              }
             };
+            if (endMonth) {
+              classNames.pop();
+            }
             return <td style={{width: '14.2857%', height: '16px'}} key={i} className={classNames.join(' ')}>{date}</td>
           })
         }
