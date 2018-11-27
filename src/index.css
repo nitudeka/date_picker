@@ -92,10 +92,12 @@ body {
   font-size: 1.44rem;
   width: 14.285714285714286%;
   padding: 12px 0;
-  color: rgba(0, 0, 0, 0.9);
+  color: rgba(0, 0, 0, 0.3);
   border-radius: 3px;
   transition: all .5s;
   cursor: pointer; }
-  .picker__day:hover {
-    border-radius: 50%;
-    background-color: #c4c4c4; }
+  .picker__day--active {
+    color: rgba(0, 0, 0, 0.8); }
+    .picker__day--active:hover {
+      border-radius: 50%;
+      background-color: #c4c4c4; }

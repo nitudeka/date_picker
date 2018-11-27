@@ -120,14 +120,18 @@ body {
     font-size: 1.44rem;
     width: 14.285714285714286%;
     padding: 12px 0;
-    color: rgba(0,0,0,.9);
+    color: rgba(0,0,0,.3);
     border-radius: 3px;
     transition: all .5s;
     cursor: pointer;
     
-    &:hover {
-      border-radius: 50%;
-      background-color: #c4c4c4;
+    &--active {
+      color: rgba(0,0,0,.8);
+
+      &:hover {
+        border-radius: 50%;
+        background-color: #c4c4c4;
+      }
     }
   }
 }
