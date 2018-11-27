@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import PickerLogic from './PickerLogic';
 import leftArr from '../../assets/svg/left-arrow.svg';
 import rightArr from '../../assets/svg/right-arrow.svg';
+import PickerLogic from './PickerLogic';
+import CalendarCell from './CalendarCell';
 
 class Picker extends Component {
   state = {
@@ -43,19 +44,7 @@ class Picker extends Component {
               </tr>
             </thead>
             <tbody>
-              {
-                this.state.monthArray.map((days, i) => {
-                  return (
-                    <tr key={i}>
-                      {
-                        days.map((day, i) => {
-                          return <td style={{width: '14.2857%', height: '16px'}} key={i} className='picker__day'>{day}</td>
-                        })
-                      }
-                    </tr>
-                  )
-                })
-              }
+              <CalendarCell monthArray={this.state.monthArray} year={2018} month={11} />
             </tbody>
           </table>
         </div>
