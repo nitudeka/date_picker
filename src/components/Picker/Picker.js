@@ -4,20 +4,22 @@ import rightArr from '../../assets/svg/right-arrow.svg';
 import PickerLogic from './PickerLogic';
 import CalendarCell from './CalendarCell';
 
+const pickerLogic = PickerLogic(12, 2018);
+
 class Picker extends Component {
   state = {
-    currentDay: PickerLogic().currentDay,
-    currentDate: PickerLogic().currentDate,
-    currentMonth: PickerLogic().currentMonth,
-    currentYear: PickerLogic().currentYear,
-    selectedMonth: PickerLogic().currentMonth,
+    currentDay: pickerLogic.currentDay,
+    currentDate: pickerLogic.currentDate,
+    currentMonth: pickerLogic.currentMonth,
+    currentYear: pickerLogic.currentYear,
+    selectedMonth: pickerLogic.currentMonth,
     monthArray: []
   }
   
   render () {
-    for (let i=1; i<=PickerLogic().allDays.length; i++) {
+    for (let i=1; i<=pickerLogic.allDays.length; i++) {
       if ((i % 7) === 0) {
-        this.state.monthArray.push(PickerLogic().allDays.slice(i - 7, i));
+        this.state.monthArray.push(pickerLogic.allDays.slice(i - 7, i));
       }
     }
     
@@ -37,14 +39,14 @@ class Picker extends Component {
             <thead>
               <tr>
                 {
-                  PickerLogic().weekDays.map((day) => {
+                  pickerLogic.weekDays.map((day) => {
                     return <th className='picker__weekday' key={day} title={day}>{day.slice(0, 3)}</th>
                   })
                 }
               </tr>
             </thead>
             <tbody>
-              <CalendarCell monthArray={this.state.monthArray} year={2018} month={11} />
+              <CalendarCell monthArray={this.state.monthArray} currentDate={this.state.currentDate} />
             </tbody>
           </table>
         </div>
